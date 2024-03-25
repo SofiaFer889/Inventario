@@ -1,14 +1,26 @@
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-amount = []
-products = []
-price = []
+def create_table():
+    conn = sqlite3.connect('inventory.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS inventory
+        id INTEGER PRIMARY KEY, product TEXT, amount INTEGER, price INTEGER)
+    ''')
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def index():
-    return render_template('index.html', products=products, amount=amount, price=price)
+    create_table()
+    conn = sqlite3.connect('inventory.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM inventory')
+    inventory = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', inventory=inventory)
 
 @app.route('/add', methods=['POST'])
 def add_product():
@@ -17,9 +29,11 @@ def add_product():
         addAmount = int(request.form['amount'])
         addPrice = int(request.form['price'])
 
-        products.append(addProduct)
-        amount.append(addAmount)
-        price.append(addPrice)
+        conn = sqlite3.connect('inventory.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO inventory (product, amount, price) VALUES (?, ?, ?)', (addProduct, addAmount, addPrice))
+        conn.commit()
+        conn.close()
 
     return redirect(url_for('index'))
 
@@ -29,23 +43,24 @@ def modify_product():
         modifyProduct = request.form['product']
         modifyAmount = int(request.form['amount'])
         modifyPrice = int(request.form['price'])
-        index = int(request.form['index'])
+        product_id = int(request.form['product_id'])
 
-        products[index] = modifyProduct
-        amount[index] = modifyAmount
-        price[index] = modifyPrice
+        conn = sqlite3.connect('inventory.db')
+        cursor = conn.cursor()
+        cursor.execute('UPDATE inventory SET product=?, amount=?, price=? WHERE id=?', (modifyProduct, modifyAmount, modifyPrice, product_id))
+        conn.commit()
+        conn.close()
 
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['GET'])
 def search_product():
     query = request.args.get('query')
-    results = []
-
-    for i in range(len(products)):
-        if query.lower() in products[i].lower():
-            results.append((products[i], amount[i], price[i]))
-
+    conn = sqlite3.connect('inventory.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM inventory WHERE product LIKE ?", ('%' + query + '%',))
+    results = cursor.fetchall()
+    conn.close()
     return render_template('search_results.html', query=query, results=results)
 
 if __name__ == '__main__':
