@@ -1,0 +1,34 @@
+body {
+    font-family: 'Cursive', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.navbar {
+    background-color: #2a2727;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #f9d400;
+}
+
+.btn-primary {
+    background-color: #333; 
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.btn-primary:hover {
+    background-color: #FFD700;
+    color: #333;
+}
+
+.table {
+    background-color: #33333385;
+}
+
+.table th,
+.table td {
+    border-color: #f9d400;
+}
