@@ -7,8 +7,7 @@ def create_table():
     conn = sqlite3.connect('inventory.db')
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS inventory
-        id INTEGER PRIMARY KEY, product TEXT, amount INTEGER, price INTEGER)
-    ''')
+                      (id INTEGER PRIMARY KEY, product TEXT, amount INTEGER, price INTEGER)''')
     conn.commit()
     conn.close()
 
