@@ -56,9 +56,10 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Fecha y Hora</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +70,7 @@
                         <td>{{ item[2] }}</td>
                         <td>{{ item[3] }}</td>
                         <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modifyProductModal{{ item[0] }}">Modificar</button></td>
+                        <td>{{ item[4] }}</td>
                     </tr>
                     <div class="modal fade" id="modifyProductModal{{ item[0] }}" tabindex="-1" role="dialog" aria-labelledby="modifyProductModalLabel{{ item[0] }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">

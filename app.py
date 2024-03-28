@@ -7,7 +7,11 @@ def create_table():
     conn = sqlite3.connect('inventory.db')
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS inventory
-                      (id INTEGER PRIMARY KEY, product TEXT, amount INTEGER, price INTEGER)''')
+                  (id INTEGER PRIMARY KEY,
+                   product TEXT,
+                   amount INTEGER,
+                   price INTEGER,
+                   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
     conn.commit()
     conn.close()
 
@@ -46,7 +50,7 @@ def modify_product():
 
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
-        cursor.execute('UPDATE inventory SET product=?, amount=?, price=? WHERE id=?', (modifyProduct, modifyAmount, modifyPrice, product_id))
+        cursor.execute('UPDATE inventory SET product=?, amount=?, price=?, timestamp=CURRENT_TIMESTAMP WHERE id=?', (modifyProduct, modifyAmount, modifyPrice, product_id))
         conn.commit()
         conn.close()
 

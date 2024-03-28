@@ -1,34 +1,30 @@
 body {
     font-family: 'Cursive', sans-serif;
-    background-color: black;
-    color: white;
+    background-color: #222;
+    color: #ffffff;
 }
 
 .navbar {
-    background-color: #2a2727;
-}
-
-.navbar-brand,
-.navbar-nav .nav-link {
-    color: #f9d400;
+    background-color: #333;
 }
 
 .btn-primary {
-    background-color: #333; 
-    border-color: #FFD700;
-    color: #FFD700;
+    background-color: #FFD700;
+    border-color: #eac702;
+    color: #000000;
 }
 
 .btn-primary:hover {
-    background-color: #FFD700;
-    color: #333;
+    background-color: #FFDF00;
+    color: #000000;
 }
 
 .table {
-    background-color: #33333385;
+    background-color: #3e3e3e;
 }
 
 .table th,
 .table td {
-    border-color: #f9d400;
+    border-color: #FFD700;
+    color: #ffffff;
 }
