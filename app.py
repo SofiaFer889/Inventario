@@ -1,5 +1,7 @@
 import sqlite3
+import pytz  # Importa pytz para trabajar con zonas horarias
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 
 app = Flask(__name__)
 
